@@ -17,7 +17,7 @@ repositories {
 dependencies {
 
     def junit4Version = '4.12'
-    def junitVintageVersion = '5.4.1'
+    def junitVintageVersion = '5.4.2'
     def junitJupiterVersion = '5.4.1'
     def junitPlatformVersion = '1.4.1'
     def mockitoVersion = '2.25.7'
