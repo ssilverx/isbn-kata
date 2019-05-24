@@ -16,26 +16,12 @@ repositories {
 
 dependencies {
 
-    def junit4Version = '4.12'
-    def junitVintageVersion = '5.4.2'
-    def junitJupiterVersion = '5.4.2'
-    def junitPlatformVersion = '1.4.2'
+    def junitVersion = '5.4.2'
     def mockitoVersion = '2.27.0'
     def assertjVersion = '3.12.2'
     def approvalVersion = '2.0.2'
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}")
-    testImplementation("junit:junit:${junit4Version}")
-
-    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
-    testRuntime("org.junit.vintage:junit-vintage-engine:${junitVintageVersion}") {
-        because 'allows JUnit 3 and JUnit 4 tests to run'
-    }
-    testRuntime("org.junit.platform:junit-platform-launcher:${junitPlatformVersion}") {
-        because 'allows tests to run from IDEs that bundle older version of launcher'
-    }
-
+    testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
     testImplementation "org.assertj:assertj-core:${assertjVersion}"
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     testImplementation "com.approvaltests:approvaltests:${approvalVersion}"
@@ -50,4 +36,7 @@ targetCompatibility = '11'
 
 test {
     useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
