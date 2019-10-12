@@ -6,3 +6,9 @@ build
 
 .idea
 out
+
+# VSC
+.classpath
+.project
+.settings/
+bin/
