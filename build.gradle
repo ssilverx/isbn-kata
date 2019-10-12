@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
 
-    def junitVersion = '5.5.1'
+    def junitVersion = '5.5.2'
     def mockitoVersion = '3.1.0'
     def assertjVersion = '3.13.2'
     def approvalVersion = '4.0.2'
