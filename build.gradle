@@ -5,26 +5,19 @@ plugins {
 }
 
 repositories {
-    maven() {
-        url 'https://dl.bintray.com/mockito/maven/'
-        content {
-            includeGroup 'org.mockito'
-        }
-    }
     mavenCentral()
 }
 
 dependencies {
-
-    def junitVersion = '5.5.2'
-    def mockitoVersion = '3.1.8'
-    def assertjVersion = '3.13.2'
+    def junitVersion = '5.6.0'
+    def assertjVersion = '3.14.0'
     def approvalVersion = '4.0.2'
 
-    testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
-    testImplementation "org.assertj:assertj-core:${assertjVersion}"
-    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
-    testImplementation "com.approvaltests:approvaltests:${approvalVersion}"
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
+    testImplementation("org.assertj:assertj-core:${assertjVersion}")
+    testImplementation("com.approvaltests:approvaltests:${approvalVersion}")
 }
 
 tasks.withType(JavaCompile) {
@@ -38,5 +31,18 @@ test {
     useJUnitPlatform()
     testLogging {
         events "passed", "skipped", "failed"
+    }
+}
+
+dependencyUpdates.resolutionStrategy {
+    componentSelection { rules ->
+        rules.all { ComponentSelection selection ->
+            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm', 'preview', 'b', 'ea'].any { qualifier ->
+                selection.candidate.version ==~ /(?i).*[.-]$qualifier[.\d-+]*/
+            }
+            if (rejected) {
+                selection.reject('Release candidate')
+            }
+        }
     }
 }
