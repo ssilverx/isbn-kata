@@ -1,29 +1,33 @@
 package kata;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 class ShoppingBasket {
 
-  private Bundle firstBundle = new Bundle();
-  private Bundle secondBundle = new Bundle();
-  private Bundle thirdBundle = new Bundle();
+  private List<Bundle> bundles = new ArrayList<>();
 
   public ShoppingBasket() {
+    bundles.add(new Bundle());
   }
 
   public String total() {
-    double sum = firstBundle.total() + secondBundle.total() + thirdBundle.total();
-    return NumberFormat.getCurrencyInstance(Locale.GERMANY).format(sum);
+    double result = 0;
+    for (Bundle bundle : bundles) {
+      result += bundle.total();
+    }
+    return NumberFormat.getCurrencyInstance(Locale.GERMANY).format(result);
   }
 
   public void put(Book book) {
-    if (!firstBundle.contains(book)) {
-      firstBundle.add(book);
-    } else if (!secondBundle.contains(book)) {
-      secondBundle.add(book);
-    } else {
-      thirdBundle.add(book);
+    for (Bundle bundle : bundles) {
+      if (!bundle.contains(book)) {
+        bundle.add(book);
+        return;
+      }
     }
+    bundles.add(new Bundle(book));
   }
 }

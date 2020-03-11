@@ -5,10 +5,13 @@ import java.util.List;
 
 class Bundle {
 
-  private List<Book> books;
+  private List<Book> books = new ArrayList<>();
 
   Bundle() {
-    this.books = new ArrayList<>();
+  }
+
+  public Bundle(Book book) {
+    books.add(book);
   }
 
   public boolean contains(Book book) {
