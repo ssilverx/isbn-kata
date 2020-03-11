@@ -151,6 +151,7 @@ class PotterTest {
         basket.put(new Book("part 1"));
         basket.put(new Book("part 2"));
         basket.put(new Book("part 3"));
+
         //when
         String total = basket.total();
 
@@ -159,30 +160,7 @@ class PotterTest {
     }
 
     @Test
-    void twelve() {
-        //given
-        basket.put(new Book("part 1"));
-        basket.put(new Book("part 2"));
-        basket.put(new Book("part 3"));
-        basket.put(new Book("part 4"));
-        basket.put(new Book("part 5"));
-        basket.put(new Book("part 1"));
-        basket.put(new Book("part 2"));
-        basket.put(new Book("part 3"));
-        basket.put(new Book("part 4"));
-        basket.put(new Book("part 5"));
-
-        basket.put(new Book("part 1"));
-        basket.put(new Book("part 2"));
-        //when
-        String total = basket.total();
-
-        //then
-        assertThat(total).isEqualTo("75,20 €");
-    }
-
-    @Test
-    void thirteen() {
+    void thirteen_books_then_even_fill_wins() {
         //given
         basket.put(new Book("part 1"));
         basket.put(new Book("part 2"));
@@ -198,6 +176,7 @@ class PotterTest {
         basket.put(new Book("part 1"));
         basket.put(new Book("part 2"));
         basket.put(new Book("part 3"));
+
         //when
         String total = basket.total();
 
@@ -206,35 +185,7 @@ class PotterTest {
     }
 
     @Test
-    void seventeen() {
-        //given
-        basket.put(new Book("part 1"));
-        basket.put(new Book("part 2"));
-        basket.put(new Book("part 3"));
-        basket.put(new Book("part 4"));
-        basket.put(new Book("part 5"));
-        basket.put(new Book("part 1"));
-        basket.put(new Book("part 2"));
-        basket.put(new Book("part 3"));
-        basket.put(new Book("part 4"));
-        basket.put(new Book("part 5"));
-        basket.put(new Book("part 1"));
-        basket.put(new Book("part 2"));
-        basket.put(new Book("part 3"));
-        basket.put(new Book("part 4"));
-        basket.put(new Book("part 5"));
-
-        basket.put(new Book("part 1"));
-        basket.put(new Book("part 2"));
-        //when
-        String total = basket.total();
-
-        //then
-        assertThat(total).isEqualTo("105,20 €");
-    }
-
-    @Test
-    void eighteen() {
+    void eighteen_books_then_even_fill_wins() {
         //given
         basket.put(new Book("part 1"));
         basket.put(new Book("part 2"));
@@ -255,6 +206,7 @@ class PotterTest {
         basket.put(new Book("part 1"));
         basket.put(new Book("part 2"));
         basket.put(new Book("part 3"));
+
         //when
         String total = basket.total();
 
@@ -263,7 +215,7 @@ class PotterTest {
     }
 
     @Test
-    void nineteen() {
+    void eighteen_but_more_duplicates_of_later_books() {
         //given
         basket.put(new Book("part 1"));
         basket.put(new Book("part 2"));
@@ -281,14 +233,14 @@ class PotterTest {
         basket.put(new Book("part 4"));
         basket.put(new Book("part 5"));
 
-        basket.put(new Book("part 1"));
-        basket.put(new Book("part 2"));
         basket.put(new Book("part 3"));
         basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+
         //when
         String total = basket.total();
 
         //then
-        assertThat(total).isEqualTo("115,60 €");
+        assertThat(total).isEqualTo("111,20 €");
     }
 }

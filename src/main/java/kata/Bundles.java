@@ -24,6 +24,11 @@ class Bundles {
   public double total() {
 
     if (books.size() % 5 == 3) {
+      double minBundles = Math.ceil(books.size() / 5.0);
+      for (int i = 0; i < minBundles; i++) {
+        even.add(new Bundle());
+      }
+
       Collections.sort(books);
       for (Book book : books) {
         evenFilling(book);
@@ -35,10 +40,6 @@ class Bundles {
       return evenTotal;
     }
 
-    double minBundles = Math.ceil(books.size() / 5.0);
-    for (int i = 0; i < minBundles; i++) {
-      even.add(new Bundle());
-    }
 
     Collections.sort(books);
     for (Book book : books) {
