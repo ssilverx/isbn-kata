@@ -1,6 +1,7 @@
 package kata;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -105,5 +106,20 @@ class PotterTest {
 
         //then
         assertThat(total).isEqualTo("30,00 €");
+    }
+
+    @Test
+    void five_book_bundle_and_two_book_bundle_both_with_discount() {
+        //given
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+
+        //when
+        String total = basket.total();
+
+        //then
+        assertThat(total).isEqualTo("30,40 €");
     }
 }
