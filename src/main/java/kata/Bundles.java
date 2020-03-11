@@ -1,77 +1,70 @@
 package kata;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 class Bundles {
 
-  private final List<Book> books;
-  private List<Bundle> eager;
-  private List<Bundle> even;
+  private List<Bundle> bundles;
 
-  private Bundles(List<Book> books) {
-    this.books = books;
-    eager = new ArrayList<>();
-    even = new ArrayList<>();
+  private Bundles(Books books) {
+    bundles = new ArrayList<>();
+    if (books.size() % 5 == 3) {
+      fillEvenly(books);
+    } else {
+      fillEagerly(books);
+    }
   }
 
-  public static Bundles from(List<Book> books) {
+  public static Bundles from(Books books) {
     return new Bundles(books);
   }
 
-  public double total() {
-
-    if (books.size() % 5 == 3) {
-      double minBundles = Math.ceil(books.size() / 5.0);
-      for (int i = 0; i < minBundles; i++) {
-        even.add(new Bundle());
-      }
-
-      Collections.sort(books);
-      for (Book book : books) {
-        evenFilling(book);
-      }
-      double evenTotal = 0;
-      for (Bundle bundle : even) {
-        evenTotal += bundle.total();
-      }
-      return evenTotal;
-    }
-
-
-    Collections.sort(books);
-    for (Book book : books) {
+  private void fillEagerly(Books books) {
+    for (Book book : books.getBooks()) {
       eagerFilling(book);
     }
-
-    double eagerTotal = 0;
-    for (Bundle bundle : eager) {
-      eagerTotal += bundle.total();
-    }
-    return eagerTotal;
-  }
-
-  private void evenFilling(Book book) {
-    even.sort(Comparator.comparing(Bundle::size));
-
-    for (Bundle bundle : even) {
-      if (!bundle.contains(book)) {
-        bundle.add(book);
-        return;
-      }
-    }
-    even.add(new Bundle(book));
   }
 
   private void eagerFilling(Book book) {
-    for (Bundle bundle : eager) {
+    for (Bundle bundle : bundles) {
       if (!bundle.contains(book)) {
         bundle.add(book);
         return;
       }
     }
-    eager.add(new Bundle(book));
+    bundles.add(new Bundle(book));
+  }
+
+  private void fillEvenly(Books books) {
+    double minBundles = Math.ceil(books.size() / 5.0);
+    for (int i = 0; i < minBundles; i++) {
+      bundles.add(new Bundle());
+    }
+
+    for (Book book : books.getBooks()) {
+      evenFilling(book);
+    }
+  }
+
+  private void evenFilling(Book book) {
+    bundles.sort(Comparator.comparing(Bundle::size));
+
+    for (Bundle bundle : bundles) {
+      if (!bundle.contains(book)) {
+        bundle.add(book);
+        return;
+      }
+    }
+    bundles.add(new Bundle(book));
+  }
+
+  public double total() {
+    double result = 0;
+    for (Bundle bundle : bundles) {
+      result += bundle.total();
+    }
+    return result;
   }
 }
