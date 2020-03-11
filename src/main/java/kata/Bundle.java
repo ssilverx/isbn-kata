@@ -20,17 +20,21 @@ class Bundle {
   }
 
   public double total() {
-    double result;
+    return books.size() * 8.00d * discount();
+  }
+
+  private double discount() {
+    double result = 0;
     if (books.size() == 1) {
-      result = 8.00d;
+      result = 1.00;
     } else if (books.size() == 2) {
-      result = books.size() * 8.00d * 0.95;
+      result = 0.95;
     } else if (books.size() == 3) {
-      result = books.size() * 8.00d * 0.90;
+      result = 0.90;
     } else if (books.size() == 4) {
-      result = books.size() * 8.00d * 0.80;
-    } else {
-      result = books.size() * 8.00d * 0.75;
+      result = 0.80;
+    } else if (books.size() == 5) {
+      result = 0.75;
     }
     return result;
   }
