@@ -35,4 +35,17 @@ class PotterTest {
         //then
         assertThat(total).isEqualTo("8.00 EUR");
     }
+
+    @Test
+    void two_different_books_cost_16_euro() {
+        //given
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+
+        //when
+        String total = basket.total();
+
+        //then
+        assertThat(total).isEqualTo("16.00 EUR");
+    }
 }
