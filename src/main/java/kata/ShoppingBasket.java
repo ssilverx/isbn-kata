@@ -5,24 +5,25 @@ import java.util.Locale;
 
 class ShoppingBasket {
 
-  private Bundle twoOrMore = new Bundle();
-  private Bundle bundle = new Bundle();
+  private Bundle firstBundle = new Bundle();
+  private Bundle secondBundle = new Bundle();
+  private Bundle thirdBundle = new Bundle();
 
   public ShoppingBasket() {
   }
 
   public String total() {
-    double uniqueTotal = bundle.total();
-    double duplicatesTotal = twoOrMore.total();
-    double sum = uniqueTotal + duplicatesTotal;
+    double sum = firstBundle.total() + secondBundle.total() + thirdBundle.total();
     return NumberFormat.getCurrencyInstance(Locale.GERMANY).format(sum);
   }
 
   public void put(Book book) {
-    if (bundle.contains(book)) {
-      twoOrMore.add(book);
+    if (!firstBundle.contains(book)) {
+      firstBundle.add(book);
+    } else if (!secondBundle.contains(book)) {
+      secondBundle.add(book);
     } else {
-      bundle.add(book);
+      thirdBundle.add(book);
     }
   }
 }
