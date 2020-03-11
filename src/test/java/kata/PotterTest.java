@@ -7,10 +7,17 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class AppTest {
+class PotterTest {
 
-    @Test
-    void my_first_test() {
-        assertThat("4" + "2").isEqualTo("42");
-    }
+  @Test
+  void price_is_zero_when_shopping_basket_empty() {
+    //given
+    ShoppingBasket basket = new ShoppingBasket();
+
+    //when
+    String total = basket.total();
+
+    //then
+    assertThat(total).isEqualTo("0.00 EUR");
+  }
 }
