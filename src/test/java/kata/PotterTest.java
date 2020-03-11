@@ -157,4 +157,138 @@ class PotterTest {
         //then
         assertThat(total).isEqualTo("51,20 €");
     }
+
+    @Test
+    void twelve() {
+        //given
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        //when
+        String total = basket.total();
+
+        //then
+        assertThat(total).isEqualTo("75,20 €");
+    }
+
+    @Test
+    void thirteen() {
+        //given
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        //when
+        String total = basket.total();
+
+        //then
+        assertThat(total).isEqualTo("81,20 €");
+    }
+
+    @Test
+    void seventeen() {
+        //given
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        //when
+        String total = basket.total();
+
+        //then
+        assertThat(total).isEqualTo("105,20 €");
+    }
+
+    @Test
+    void eighteen() {
+        //given
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        //when
+        String total = basket.total();
+
+        //then
+        assertThat(total).isEqualTo("111,20 €");
+    }
+
+    @Test
+    void nineteen() {
+        //given
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        //when
+        String total = basket.total();
+
+        //then
+        assertThat(total).isEqualTo("115,60 €");
+    }
 }
