@@ -37,7 +37,7 @@ class PotterTest {
     }
 
     @Test
-    void two_same_books_cost_16_euro() {
+    void two_same_books_cost_16() {
         //given
         basket.put(new Book("part 1"));
         basket.put(new Book("part 1"));
@@ -47,5 +47,18 @@ class PotterTest {
 
         //then
         assertThat(total).isEqualTo("16,00 €");
+    }
+
+    @Test
+    void two_different_books_then_discount_applies() {
+        //given
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+
+        //when
+        String total = basket.total();
+
+        //then
+        assertThat(total).isEqualTo("15,20 €");
     }
 }
