@@ -21,7 +21,7 @@ class PotterTest {
     void price_is_zero_when_shopping_basket_empty() {
         String total = basket.total();
 
-        assertThat(total).isEqualTo("0.00 EUR");
+        assertThat(total).isEqualTo("0,00 €");
     }
 
     @Test
@@ -33,7 +33,7 @@ class PotterTest {
         String total = basket.total();
 
         //then
-        assertThat(total).isEqualTo("8.00 EUR");
+        assertThat(total).isEqualTo("8,00 €");
     }
 
     @Test
@@ -46,6 +46,6 @@ class PotterTest {
         String total = basket.total();
 
         //then
-        assertThat(total).isEqualTo("16.00 EUR");
+        assertThat(total).isEqualTo("16,00 €");
     }
 }

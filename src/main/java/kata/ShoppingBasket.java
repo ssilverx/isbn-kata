@@ -1,27 +1,26 @@
 package kata;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 class ShoppingBasket {
-
-  private String string;
 
   private List<Book> contents;
 
   public ShoppingBasket() {
-    string = "0.00 EUR";
     contents = new ArrayList<>();
   }
 
   public String total() {
     int size = contents.size();
-    int total = size * 8;
-    return total + ".00 EUR";
+    double total = size * 8.00d;
+    NumberFormat currencyInstance = NumberFormat.getCurrencyInstance(Locale.GERMANY);
+    return currencyInstance.format(total);
   }
 
   public void put(Book book) {
     contents.add(book);
-    this.string = "8.00 EUR";
   }
 }
