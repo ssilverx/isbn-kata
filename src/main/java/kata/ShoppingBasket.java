@@ -23,8 +23,10 @@ class ShoppingBasket {
       uniqueTotal = unique.size() * 8.00d * 0.95;
     } else if (unique.size() == 3) {
       uniqueTotal = unique.size() * 8.00d * 0.90;
-    } else {
+    } else if (unique.size() == 4) {
       uniqueTotal = unique.size() * 8.00d * 0.80;
+    } else {
+      uniqueTotal = unique.size() * 8.00d * 0.75;
     }
     double duplicatesTotal = twoOrMore.size() * 8.00d;
     double sum = uniqueTotal + duplicatesTotal;
