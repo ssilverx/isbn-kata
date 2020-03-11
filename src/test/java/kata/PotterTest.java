@@ -138,4 +138,23 @@ class PotterTest {
         //then
         assertThat(total).isEqualTo("38,40 €");
     }
+
+    @Test
+    void endboss() {
+        //given
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        basket.put(new Book("part 4"));
+        basket.put(new Book("part 5"));
+
+        basket.put(new Book("part 1"));
+        basket.put(new Book("part 2"));
+        basket.put(new Book("part 3"));
+        //when
+        String total = basket.total();
+
+        //then
+        assertThat(total).isEqualTo("51,20 €");
+    }
 }

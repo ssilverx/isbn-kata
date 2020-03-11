@@ -2,7 +2,7 @@ package kata;
 
 import java.util.Objects;
 
-class Book {
+class Book implements Comparable<Book> {
 
   private final String title;
 
@@ -21,5 +21,10 @@ class Book {
   @Override
   public int hashCode() {
     return Objects.hash(title);
+  }
+
+  @Override
+  public int compareTo(Book o) {
+    return title.compareTo(o.title);
   }
 }

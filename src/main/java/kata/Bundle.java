@@ -26,6 +26,10 @@ class Bundle {
     return books.size() * 8.00d * discount();
   }
 
+  public int size() {
+    return books.size();
+  }
+
   private double discount() {
     double result = 0;
     if (books.size() == 1) {
