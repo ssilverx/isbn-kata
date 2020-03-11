@@ -7,29 +7,31 @@ import java.util.Locale;
 
 class ShoppingBasket {
 
-  private List<Book> contents;
+  private List<Book> unique;
+  private List<Book> twoOrMore;
 
   public ShoppingBasket() {
-    contents = new ArrayList<>();
+    unique = new ArrayList<>();
+    twoOrMore = new ArrayList<>();
   }
 
   public String total() {
-    double total = 0;
-    if (contents.size() == 2) {
-      if (!contents.get(0).equals(contents.get(1))) {
-        total = 15.20D;
-        return NumberFormat.getCurrencyInstance(Locale.GERMANY).format(total);
-      }
+    double uniqueTotal;
+    if (unique.size() == 1) {
+      uniqueTotal = 8.00d;
+    } else {
+      uniqueTotal = unique.size() * 8.00d * 0.95;
     }
-
-    int size = contents.size();
-    total = size * 8.00d;
-
-    NumberFormat currencyInstance = NumberFormat.getCurrencyInstance(Locale.GERMANY);
-    return currencyInstance.format(total);
+    double duplicatesTotal = twoOrMore.size() * 8.00d;
+    double sum = uniqueTotal + duplicatesTotal;
+    return NumberFormat.getCurrencyInstance(Locale.GERMANY).format(sum);
   }
 
   public void put(Book book) {
-    contents.add(book);
+    if (unique.contains(book)) {
+      twoOrMore.add(book);
+    } else {
+      unique.add(book);
+    }
   }
 }
