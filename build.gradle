@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    def junitVersion = '5.6.0'
+    def junitVersion = '5.6.1'
     def assertjVersion = '3.15.0'
     def approvalVersion = '4.0.2'
 
