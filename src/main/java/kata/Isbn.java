@@ -5,19 +5,18 @@ import java.util.List;
 
 class Isbn {
 
-    private String isbn;
+    private final String isbn;
 
     public Isbn(String isbn) {
-        isValid(isbn);
+        this.isValid(isbn);
         this.isbn = isbn;
     }
 
-    static void isValid(String input) {
+    void isValid(String input) {
         input = sanitize(input, "-");
         input = sanitize(input, " ");
-        if (input.length() != 13) {
-            throw new IllegalArgumentException("expected input with 13 chars");
-        }
+        validateLength(input);
+
         try {
             Long.parseLong(input);
         } catch (NumberFormatException e) {
@@ -36,15 +35,29 @@ class Isbn {
         }
     }
 
+    private static void validateLength(String input) {
+        if (input.length() != 13) {
+            throw new IllegalArgumentException("expected input with 13 chars");
+        }
+    }
+
     private static int sumOfProducts(List<Integer> integers) {
         int sum = 0;
         for (int i = 0; i < integers.size() - 1; i = i + 2) {
-            sum += integers.get(i);
+            sum += valueForOddPositionDigit(integers.get(i));
         }
         for (int i = 1; i < integers.size() - 1; i = i + 2) {
-            sum += integers.get(i) * 3;
+            sum += valueForEvenPositionDigit(integers.get(i));
         }
         return sum;
+    }
+
+    private static int valueForEvenPositionDigit(Integer integer) {
+        return integer * 3;
+    }
+
+    private static Integer valueForOddPositionDigit(Integer integer) {
+        return integer;
     }
 
     private static List<Integer> toIndividualIntegers(String input) {

@@ -38,7 +38,7 @@ class AppTest {
 
   @Test
   void valid_isbn_needs_correct_checksum() {
-    new Isbn("9780470059020");
+      assertThrows(IllegalArgumentException.class, () -> new Isbn("9780470059020"));
   }
 
   @ParameterizedTest
