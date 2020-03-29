@@ -1,6 +1,5 @@
 package kata;
 
-import java.util.ArrayList;
 import java.util.List;
 
 class Isbn13 extends Isbn {
@@ -10,25 +9,19 @@ class Isbn13 extends Isbn {
     }
 
     @Override
-    void validateChecksum(String isbn) {
-        final List<Integer> integers = toIndividualIntegers(isbn);
+    void validateChecksum(List<Integer> integers) {
+        final int calculatedChecksum = this.calculateChecksum(integers);
 
-        final int sum = sumOfProducts(integers);
-
-        final int calculatedChecksum = (10 - (sum % 10)) % 10;
-
-        if (calculatedChecksum != integers.get(integers.size() - 1)) {
+        final int actualChecksum = integers.get(integers.size() - 1);
+        if (calculatedChecksum != actualChecksum) {
             throw new IllegalArgumentException(
-                    String.format("expected checksum to be %d but was %d", integers.get(12), calculatedChecksum));
+                    String.format("expected checksum to be %d but was %d", actualChecksum, calculatedChecksum));
         }
     }
 
-    private static List<Integer> toIndividualIntegers(String input) {
-        final List<Integer> integers = new ArrayList<>();
-        for (char inputChar : input.toCharArray()) {
-            integers.add(Character.getNumericValue(inputChar));
-        }
-        return integers;
+    private int calculateChecksum(List<Integer> integers) {
+        final int sum = sumOfProducts(integers);
+        return (10 - (sum % 10)) % 10;
     }
 
     private static int sumOfProducts(List<Integer> integers) {
@@ -42,11 +35,11 @@ class Isbn13 extends Isbn {
         return sum;
     }
 
-    private static int valueForEvenPositionDigit(Integer integer) {
-        return integer * 3;
+    private static int valueForOddPositionDigit(int integer) {
+        return integer;
     }
 
-    private static Integer valueForOddPositionDigit(Integer integer) {
-        return integer;
+    private static int valueForEvenPositionDigit(int integer) {
+        return integer * 3;
     }
 }

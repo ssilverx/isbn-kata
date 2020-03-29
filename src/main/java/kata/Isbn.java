@@ -1,5 +1,8 @@
 package kata;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Isbn {
 
     private static final int ISBN_10_LENGTH = 10;
@@ -21,7 +24,7 @@ public abstract class Isbn {
     }
 
     Isbn(String value) {
-        this.validateChecksum(value);
+        this.validateChecksum(this.toIndividualIntegers(value));
         this.value = value;
     }
 
@@ -38,7 +41,15 @@ public abstract class Isbn {
         }
     }
 
-    abstract void validateChecksum(String isbn);
+    protected List<Integer> toIndividualIntegers(String input) {
+        final List<Integer> integers = new ArrayList<>();
+        for (char inputChar : input.toCharArray()) {
+            integers.add(Character.getNumericValue(inputChar));
+        }
+        return integers;
+    }
+
+    abstract void validateChecksum(List<Integer> integers);
 
     public String getValue() {
         return this.value;

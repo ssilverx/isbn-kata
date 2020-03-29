@@ -56,7 +56,12 @@ class AppTest {
     }
 
     @Test
-    void valid_isbn_13_has_correct_checksum() {
+    void valid_isbn_can_have_10_digits() {
+        Isbn.from("0 471 60695 2");
+    }
+
+    @Test
+    void invalid_isbn_13_if_input_has_incorrect_checksum() {
         final Throwable thrown = catchThrowable(() -> Isbn.from("9780470059020"));
 
         assertThat(thrown).isInstanceOf(IllegalArgumentException.class)
@@ -64,8 +69,11 @@ class AppTest {
     }
 
     @Test
-    void valid_isbn_10_has_correct_checksum() {
-        Isbn.from("0471958697");
+    void invalid_isbn_10_if_input_has_incorrect_checksum() {
+        final Throwable thrown = catchThrowable(() -> Isbn.from("0471958690"));
+
+        assertThat(thrown).isInstanceOf(IllegalArgumentException.class)
+                          .hasMessage("expected checksum to be 0 but was 7");
     }
 
     @ParameterizedTest
