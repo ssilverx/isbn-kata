@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class AppTest {
@@ -40,7 +39,10 @@ class AppTest {
 
     @Test
     void invalid_isbn_when_input_contains_non_digits() {
-        assertThrows(IllegalArgumentException.class, () -> Isbn.from("978047005902a"));
+        final Throwable thrown = catchThrowable(() -> Isbn.from("978047005902a"));
+
+        assertThat(thrown).isInstanceOf(IllegalArgumentException.class)
+                          .hasMessage("expected input to only contain digits");
     }
 
     @Test
@@ -54,12 +56,15 @@ class AppTest {
     }
 
     @Test
-    void valid_isbn_needs_correct_checksum() {
-        assertThrows(IllegalArgumentException.class, () -> Isbn.from("9780470059020"));
+    void valid_isbn_13_has_correct_checksum() {
+        final Throwable thrown = catchThrowable(() -> Isbn.from("9780470059020"));
+
+        assertThat(thrown).isInstanceOf(IllegalArgumentException.class)
+                          .hasMessage("expected checksum to be 0 but was 9");
     }
 
     @Test
-    void valid_isbn_10_needs_correct_checksum() {
+    void valid_isbn_10_has_correct_checksum() {
         Isbn.from("0471958697");
     }
 
