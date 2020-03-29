@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -39,6 +41,11 @@ class AppTest {
         assertThat(isIsbn("9780470059020")).isFalse();
     }
 
+    @Test
+    void valid_isbn_needs_correct_checksum_() {
+        assertThat(isIsbn("9780470059029")).isTrue();
+    }
+
     private boolean isIsbn(String input) {
         input = replace(input, "-");
         input = replace(input, " ");
@@ -51,14 +58,22 @@ class AppTest {
             return false;
         }
 
-        // by multiplying each digit alternately by 1 or 3
-        // (i.e., 1 x 1st digit, 3 x 2nd digit, 1 x 3rd digit, 3 x 4th digit, etc.),
-        // summing these products together,
-        // taking modulo 10 of the result
-        //and subtracting this value from 10,
-        // and then taking the modulo 10 of the result again to produce a single digit.
+        int sum = 0;
+        final ArrayList<Integer> integers = new ArrayList<>();
+        for (char inputChar : input.toCharArray()) {
+            integers.add(Character.getNumericValue(inputChar));
+        }
+        for (int i = 0; i < integers.size() - 1; i=i+2) {
+            sum += integers.get(i);
 
-        return true;
+        }
+        for (int i = 1; i < integers.size() -1 ; i=i+2) {
+            sum += integers.get(i) * 3;
+
+        }
+        int result = (10 - (sum % 10)) % 10;
+
+        return result == integers.get(12);
     }
 
     private String replace(String input, String target) {
