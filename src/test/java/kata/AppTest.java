@@ -4,43 +4,41 @@ import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class AppTest {
 
   @Test
   void invalid_isbn() {
-    assertThat(Isbn.isValid("978047005902")).isFalse();
+    assertThrows(IllegalArgumentException.class, () -> new Isbn("978047005902"));
   }
 
   @Test
   void invalid_isbn_more_than_13_digits() {
-    assertThat(Isbn.isValid("97804700590291")).isFalse();
+    assertThrows(IllegalArgumentException.class, () -> new Isbn("97804700590291"));
   }
 
   @Test
   void invalid_isbn_when_input_contains_non_digits() {
-    assertThat(Isbn.isValid("978047005902a")).isFalse();
+    assertThrows(IllegalArgumentException.class, () -> new Isbn("978047005902a"));
   }
 
   @Test
   void valid_isbn_can_contain_dashes() {
-    assertThat(Isbn.isValid("978-0596809485")).isTrue();
+    new Isbn("978-0596809485");
   }
 
   @Test
   void valid_isbn_can_contain_spaces() {
-    assertThat(Isbn.isValid("978 0 471 48648 0")).isTrue();
+    new Isbn("978 0 471 48648 0");
   }
 
   @Test
   void valid_isbn_needs_correct_checksum() {
-    assertThat(Isbn.isValid("9780470059020")).isFalse();
+    new Isbn("9780470059020");
   }
 
   @ParameterizedTest
@@ -50,6 +48,6 @@ class AppTest {
       "978-0-13-149505-0",
       "978-0-262-13472-9"})
   void valid_isbns(String input) {
-    assertThat(Isbn.isValid(input)).isTrue();
+    new Isbn(input);
   }
 }
