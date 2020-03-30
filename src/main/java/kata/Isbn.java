@@ -1,14 +1,11 @@
 package kata;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Isbn {
 
     private static final int ISBN_10_LENGTH = 10;
     private static final int ISBN_13_LENGTH = 13;
 
-    private final String value;
+    private final String isbn;
 
     public static Isbn from(final String input) {
         final String sanitizedInput = sanitize(input);
@@ -23,10 +20,12 @@ public abstract class Isbn {
         }
     }
 
-    Isbn(String value) {
-        this.validateChecksum(this.toIndividualIntegers(value));
-        this.value = value;
+    Isbn(String isbn) {
+        this.validateChecksum(isbn);
+        this.isbn = isbn;
     }
+
+    abstract void validateChecksum(String isbn);
 
     private static String sanitize(String input) {
         return input.replace("-", "")
@@ -34,24 +33,23 @@ public abstract class Isbn {
     }
 
     private static void validateNumericInput(String isbn) {
+        if (isbn.length() == 10 && isbn.endsWith("X")) {
+            final String digitsPart = isbn.substring(0, isbn.length() - 1);
+            parseOrThrow(digitsPart);
+        } else {
+            parseOrThrow(isbn);
+        }
+    }
+
+    private static void parseOrThrow(String input) {
         try {
-            Long.parseLong(isbn);
+            Long.parseLong(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("expected input to only contain digits");
         }
     }
 
-    protected List<Integer> toIndividualIntegers(String input) {
-        final List<Integer> integers = new ArrayList<>();
-        for (char inputChar : input.toCharArray()) {
-            integers.add(Character.getNumericValue(inputChar));
-        }
-        return integers;
-    }
-
-    abstract void validateChecksum(List<Integer> integers);
-
-    public String getValue() {
-        return this.value;
+    public String getIsbn() {
+        return this.isbn;
     }
 }

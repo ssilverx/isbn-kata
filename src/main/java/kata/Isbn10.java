@@ -1,5 +1,6 @@
 package kata;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class Isbn10 extends Isbn {
@@ -16,9 +17,10 @@ class Isbn10 extends Isbn {
      * is 10).
      */
     @Override
-    void validateChecksum(List<Integer> integers) {
+    void validateChecksum(String isbn) {
+        final List<Integer> integers = this.toIndividualDigits(isbn);
         final int calculatedChecksum = this.calculateChecksum(integers);
-        final int actualChecksum = integers.get(integers.size() - 1);
+        final int actualChecksum = this.getActualChecksum(integers);
 
         if (calculatedChecksum != actualChecksum) {
             throw new IllegalArgumentException(
@@ -26,16 +28,32 @@ class Isbn10 extends Isbn {
         }
     }
 
-    private int calculateChecksum(List<Integer> integers) {
-        final int sum = this.sumOfProducts(integers);
+    protected List<Integer> toIndividualDigits(String input) {
+        final List<Integer> integers = new ArrayList<>();
+        for (char inputChar : input.toCharArray()) {
+            if ("X".equals(Character.toString(inputChar))) {
+                integers.add(10);
+            } else {
+                integers.add(Character.getNumericValue(inputChar));
+            }
+        }
+        return integers;
+    }
+
+    private int calculateChecksum(List<Integer> digits) {
+        final int sum = this.sumOfProducts(digits);
         return sum % 11;
     }
 
-    private int sumOfProducts(List<Integer> integers) {
+    private int sumOfProducts(List<Integer> digits) {
         int sum = 0;
-        for (int i = 0; i < integers.size() - 1; i++) {
-            sum += integers.get(i) * (i + 1);
+        for (int i = 0; i < digits.size() - 1; i++) {
+            sum += digits.get(i) * (i + 1);
         }
         return sum;
+    }
+
+    private int getActualChecksum(List<Integer> integers) {
+        return integers.get(integers.size() - 1);
     }
 }

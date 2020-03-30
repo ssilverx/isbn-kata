@@ -61,6 +61,11 @@ class AppTest {
     }
 
     @Test
+    void isbn_10_check_digit_may_be_X() {
+        Isbn.from("0-9752298-0-X");
+    }
+
+    @Test
     void invalid_isbn_13_if_input_has_incorrect_checksum() {
         final Throwable thrown = catchThrowable(() -> Isbn.from("9780470059020"));
 
